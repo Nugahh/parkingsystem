@@ -23,8 +23,8 @@ public class InputReaderUtil {
 
     public String readVehicleRegistrationNumber() throws Exception {
         try {
-            String vehicleRegNumber= scan.nextLine();
-            if(vehicleRegNumber == null || vehicleRegNumber.trim().length()==0) {
+            String vehicleRegNumber = scan.nextLine();
+            if (vehicleRegNumber == null || vehicleRegNumber.trim().length() == 0) {
                 throw new IllegalArgumentException("Invalid input provided");
             }
             return vehicleRegNumber;
@@ -34,6 +34,4 @@ public class InputReaderUtil {
             throw e;
         }
     }
-
-
 }

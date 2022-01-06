@@ -59,6 +59,17 @@
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-report-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,7 +92,7 @@
                                 </manifest>
                             </archive>
                             <descriptorRefs>
-                                <descriptorRef>executable-jar-with-dependencies</descriptorRef>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
                         </configuration>
                     </execution>
@@ -101,6 +112,10 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*IT.java</exclude>
+                        <exclude>**/model/*</exclude>
+                        <exclude>**/util/*</exclude>
+                        <exclude>**/config/*</exclude>
+                        <exclude>**/constants/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -125,6 +140,14 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/model/*</exclude>
+                        <exclude>**/util/*</exclude>
+                        <exclude>**/config/*</exclude>
+                        <exclude>**/constants/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -132,15 +155,34 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>jacoco-report</id>
+                        <id>jacoco-site</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
         </plugins>
     </build>
-
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
