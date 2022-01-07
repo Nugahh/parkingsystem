@@ -78,8 +78,9 @@ public class ParkingServiceTest {
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
         verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
     }
+
     @Test
-    public void processIncomingVehicleNotRecurrentUserTest() throws Exception {
+    public void processIncomingVehicleNotRecurrentUserTest() {
 
         when(ticketDAO.countVehicleNbVisit("ABCDEF")).thenReturn(false);
         parkingService.processIncomingVehicle();
@@ -90,7 +91,7 @@ public class ParkingServiceTest {
     }
 
     @Test
-    public void processIncomingVehicleRecurrentUserTest() throws Exception {
+    public void processIncomingVehicleRecurrentUserTest() {
 
         when(ticketDAO.countVehicleNbVisit("ABCDEF")).thenReturn(true);
         parkingService.processIncomingVehicle();
@@ -110,7 +111,7 @@ public class ParkingServiceTest {
     }
 
     @Test
-    public void processExitingVehicleErrorTest() throws Exception {
+    public void processExitingVehicleErrorTest() {
 
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
 
@@ -119,7 +120,7 @@ public class ParkingServiceTest {
     }
 
     @Test
-    public void processExitingNotVehicleErrorTest() throws Exception {
+    public void processExitingNotVehicleErrorTest() {
 
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
 
@@ -151,17 +152,4 @@ public class ParkingServiceTest {
         verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
     }
 }
-   /* @Test
-
-    public void processDiscountForRecurrentUsersTest() {
-
-        ticket.setRecurrentUser(true);
-        parkingService.processExitingVehicle();
-
-        double result = ticketDAO.getTicket(anyString()).getPrice();
-
-        // check if the ticket was updated in the database
-        verify(ticketDAO, Mockito.times(1)).updateTicket(any());
-//        assertThat(result).isEqualTo(Fare.CAR_RATE_PER_HOUR * 0.95);
-    }*/
 
