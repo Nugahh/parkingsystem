@@ -21,17 +21,18 @@ public class TicketDAO {
     public boolean countVehicleNbVisit(String regNumber) {
         Connection con = null;
 
+        ResultSet rs = null;
+        PreparedStatement ps = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_VEHICLE_REG_NUMBER);
+            ps = con.prepareStatement(DBConstants.COUNT_VEHICLE_REG_NUMBER);
 
             ps.setString(1, regNumber);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
-            if (!rs.next()){
+            if (!rs.next()) {
                 return false;
-            }
-            else {
+            } else {
                 int count = rs.getInt("total");
                 return count > 2;
             }
@@ -39,6 +40,8 @@ public class TicketDAO {
         } catch (Exception ex) {
             logger.error("Error", ex);
         } finally {
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
             dataBaseConfig.closeConnection(con);
         }
         return false;
@@ -47,12 +50,14 @@ public class TicketDAO {
     public boolean isVehicleInside(String regNumber) {
         Connection con = null;
 
+        ResultSet rs = null;
+        PreparedStatement ps = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.GET_LAST_TICKET_FROM_REG_NUMBER);
+            ps = con.prepareStatement(DBConstants.GET_LAST_TICKET_FROM_REG_NUMBER);
 
             ps.setString(1, regNumber);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (!rs.next()) {
                 return false;
@@ -64,6 +69,8 @@ public class TicketDAO {
         } catch (Exception ex) {
             logger.error("Error", ex);
         } finally {
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
             dataBaseConfig.closeConnection(con);
         }
         return false;
@@ -72,9 +79,10 @@ public class TicketDAO {
     public boolean saveTicket(Ticket ticket) {
         Connection con = null;
 
+        PreparedStatement ps = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.SAVE_TICKET);
+            ps = con.prepareStatement(DBConstants.SAVE_TICKET);
 //
             ps.setInt(1, ticket.getParkingSpot().getId());
             ps.setString(2, ticket.getVehicleRegNumber());
@@ -87,6 +95,7 @@ public class TicketDAO {
         } catch (Exception ex) {
             logger.error("Error fetching next available slot", ex);
         } finally {
+            dataBaseConfig.closePreparedStatement(ps);
             dataBaseConfig.closeConnection(con);
         }
         return false;
@@ -126,9 +135,10 @@ public class TicketDAO {
 
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_TICKET);
+            ps = con.prepareStatement(DBConstants.UPDATE_TICKET);
             ps.setDouble(1, ticket.getPrice());
             ps.setTimestamp(2, ticket.getOutTime() == null ? null : Timestamp.valueOf(ticket.getOutTime()));
             ps.setInt(3, ticket.getId());
@@ -137,6 +147,7 @@ public class TicketDAO {
         } catch (Exception ex) {
             logger.error("Error saving ticket info", ex);
         } finally {
+            dataBaseConfig.closePreparedStatement(ps);
             dataBaseConfig.closeConnection(con);
         }
         return false;
