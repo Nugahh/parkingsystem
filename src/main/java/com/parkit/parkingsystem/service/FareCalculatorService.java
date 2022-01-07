@@ -19,11 +19,11 @@ public class FareCalculatorService {
         //TODO: Some tests are failing here. Need to check if this logic is correct
 
 
-        if (isFree(Duration.ofMinutes(duration))) {
+        if (isFree(Duration.ofMinutes(duration))) { // Si duration <= 30 minutes, duration = 0 sinon duration = duration
             return;
         }
 
-        double discount = getDiscount(ticket);
+        double discount = getDiscount(ticket); // Si isRecurrentUser alors discount = 0.95 sinon = 1
 
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR: {
@@ -39,7 +39,7 @@ public class FareCalculatorService {
         }
     }
 
-    private boolean isFree(Duration duration) {
+    private boolean isFree(Duration duration) { //
         return duration.toMinutes() <= freeBelowThirtyMinutes;
     }
 
@@ -48,8 +48,3 @@ public class FareCalculatorService {
     }
 }
 
-    //méthode pour calculer le temps passé dans le parking
-    // condition : si >30 mnutes alors return duration (long). Else return 0 (long)
-
-    //méthode pour savoir si c'est un utilisateur récurrent
-    // retourne 1 ou retourne 0.95
