@@ -23,7 +23,7 @@ public class FareCalculatorService {
             return;
         }
 
-        double discount = getDiscount(ticket); // Si isRecurrentUser alors discount = 0.95 sinon = 1
+        double discount = getDiscount(ticket); // Si isRecurrentUser alors discount = 0.95 sinon
 
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR: {
@@ -39,7 +39,7 @@ public class FareCalculatorService {
         }
     }
 
-    private boolean isFree(Duration duration) { //
+    private boolean isFree (Duration duration) {
         return duration.toMinutes() <= freeBelowThirtyMinutes;
     }
 
