@@ -125,7 +125,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareCarWithLessThanThirtyMinutesParkingTime() {
-        LocalDateTime inTime = LocalDateTime.now().minusMinutes(30); //24 hours parking time should give 24 * parking fare per hour
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(30); // Free fare below 30 minutes parking
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -138,7 +138,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareRecurrentCar() {
-        LocalDateTime inTime = LocalDateTime.now().minusMinutes(60); //45 minutes parking time should give 3/4th parking fare
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(60); // apply 5% reduction for recurrent car users
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -152,7 +152,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareRecurrentBike() {
-        LocalDateTime inTime = LocalDateTime.now().minusMinutes(60); //45 minutes parking time should give 3/4th parking fare
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(60); // apply 5% reduction for recurrent bike users
         LocalDateTime outTime = LocalDateTime.now();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
 

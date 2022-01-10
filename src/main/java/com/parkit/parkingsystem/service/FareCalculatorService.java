@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public class FareCalculatorService {
 
-    private static final long freeBelowThirtyMinutes = 30;
+    private static final long thirtyMinutes = 30;
     private static final double discountForRecurringUsers = 0.95;
 
     public void calculateFare(Ticket ticket) {
@@ -40,7 +40,7 @@ public class FareCalculatorService {
     }
 
     private boolean isFree (Duration duration) {
-        return duration.toMinutes() <= freeBelowThirtyMinutes;
+        return duration.toMinutes() <= thirtyMinutes;
     }
 
     private double getDiscount (Ticket ticket) {

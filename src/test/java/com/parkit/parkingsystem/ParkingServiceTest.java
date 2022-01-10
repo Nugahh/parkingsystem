@@ -130,7 +130,6 @@ public class ParkingServiceTest {
     @Test
     public void getNextParkingNumberIfAvailableTest() {
 
-//        when(inputReaderUtil.readSelection()).thenReturn(2);
         when(parkingSpotDAO.getNextAvailableSlot(any())).thenReturn(0);
         assertNull(parkingService.getNextParkingNumberIfAvailable());
     }
